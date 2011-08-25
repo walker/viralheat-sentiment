@@ -92,12 +92,17 @@ module.exports = (api_key) ->
 		parsedParams = qs.stringify(params).replace(/\%2c/ig, ',')
 		fullUrl = baseUrl + path.join(module, method) + '.json'
 		
-		if(_is('get', module, method) && typeof api_key == 'string')
-			# console.log('GET: ' + fullUrl + '?' + parsedParams)
-			get(fullUrl + '?' + parsedParams + '&api_key=' + api_key, callback)
+		if(typeof api_key == 'string')
+			if(_is('get', module, method))
+				# console.log('GET: ' + fullUrl + '?' + parsedParams)
+				get(fullUrl + '?' + parsedParams + '&api_key=' + api_key, callback)
+			else
+				console.log('Method not supported.')
+				new Error('Viralheat.callAPI: Method not supported.')
+				return
 		else
-			console.log('Method not supported.')
-			new Error('Viralheat.callAPI: Method not supported.')
+			console.log('No api key was provided.')
+			new Error('viralheat.callAPI: You failed to provide an api key or the api key provided was not valid.')
 			return
 
 	######
