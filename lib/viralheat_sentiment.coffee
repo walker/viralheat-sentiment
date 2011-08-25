@@ -6,26 +6,31 @@ exports = module.exports = (api_key) ->
 	core = require('./core')(api_key)
 	
 	get = (text, callback) ->
+		params =
+			text: text
+		
 		core.callApi(
 			'sentiment',
 			'review',
 			params,
-			null,
 			(err, data, status) ->
-				if(status=='200')
+				if(status==200)
 					callback(null, data, 200)
 				else
 					callback({code:status, msg: err})
 		)
 	
 	train = (text, mood, callback) ->
+		params =
+			text: text
+			mood: mood
+		
 		core.callApi(
 			'sentiment',
 			'train',
 			params,
-			null,
 			(err, data, status) ->
-				if(status=='200')
+				if(status==200)
 					callback(null, data, 200)
 				else
 					callback({code:status, msg: err})
@@ -35,10 +40,9 @@ exports = module.exports = (api_key) ->
 		core.callApi(
 			'sentiment',
 			'quota',
-			params,
 			null,
 			(err, data, status) ->
-				if(status=='200')
+				if(status==200)
 					callback(null, data, 200)
 				else
 					callback({code:status, msg: err})

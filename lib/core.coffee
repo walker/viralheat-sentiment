@@ -74,7 +74,7 @@ module.exports = (api_key) ->
 	callApi = (module, method, params, callback) ->
 		if(typeof callback isnt 'function')
 			callback = (err, data, status) ->
-				console.log('No callback was set for '+module+'.'+'method')
+				console.log('No callback was set for '+module+'.'+method)
 		if (!module || !method)
 			new Error('viralheat.callAPI: Module and Method are required.')
 			return
@@ -92,7 +92,7 @@ module.exports = (api_key) ->
 		parsedParams = qs.stringify(params).replace(/\%2c/ig, ',')
 		fullUrl = baseUrl + path.join(module, method) + '.json'
 		
-		if(_is('get', module, method) && typeof token == 'string')
+		if(_is('get', module, method) && typeof api_key == 'string')
 			# console.log('GET: ' + fullUrl + '?' + parsedParams)
 			get(fullUrl + '?' + parsedParams + '&api_key=' + api_key, callback)
 		else
