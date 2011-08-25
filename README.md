@@ -53,5 +53,5 @@ sentiment.quota(function(err, data, status) {
 	} else {
 		res.send(data.quota_remaining);
 	}
-);
+});
 ```
