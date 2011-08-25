@@ -1,7 +1,7 @@
 {
   "author": "Walker Hamilton <myself@walkerhamilton.com> (http://walkerhamilton.com)",
   "name": "viralheat-sentiment",
-  "description": "Module for accessing the ViralHeat sentiment analysis service.",
+  "description": "Module for accessing the Viralheat sentiment analysis service.",
   "keywords": ["api", "sentiment analysis", "text", "analysis"],
   "version": "0.0.2",
   "licenses":     [{
