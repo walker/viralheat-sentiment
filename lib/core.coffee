@@ -122,14 +122,13 @@ module.exports = (token, url, ver) ->
 		######
 		# Call API
 		#
-		# @param {String} module The Bandcamp API module
+		# @param {String} module The Viralheat API module
 		# @param {String} method Module method
 		# @param {Object} parameters Parameters to pass to the method
-		# @param {Function} callback Callback to handle Bandcamp response
-		# @param {Integer} [ver] Version of the module you want to call. This is an override of defaults (latest).
-		# @return {Object} Bandcamp response
+		# @param {Function} callback Callback to handle Viralheat response
+		# @return {Object} Viralheat response
 		######
-		callApi: (module, method, params, payload, callback, ver) ->
+		callApi: (module, method, params, callback) ->
 			if(typeof callback isnt 'function')
 				callback = (err, data, status) ->
 					console.log('No callback was set for '+module+'.'+'method')
@@ -142,45 +141,27 @@ module.exports = (token, url, ver) ->
 					params =  {}
 				params.api_key = api_key
 			else
-				params = null
+				console.log('Method, '+method+', not supported.')
+				new Error('Viralheat.callAPI: Method, '+method+', not supported.')
+				return
 			
 			baseUrl = api_url
 			parsedParams = qs.stringify(params).replace(/\%2c/ig, ',')
-			switch module
-				when 'profiles', 'statistics', 'data'
-					fullUrl = baseUrl + path.join(module, method)
-				else
-					fullUrl = baseUrl + path.join(module, method) + '.json'
+			fullUrl = baseUrl + path.join(module, method) + '.json'
 			
 			if(_is('get', module, method) && typeof token == 'string')
-				console.log('GET: ' + fullUrl + '?' + parsedParams)
+				# console.log('GET: ' + fullUrl + '?' + parsedParams)
 				get(fullUrl + '?' + parsedParams + '&api_key=' + api_key, callback)
 			else
-				console.log('POST: ' + fullUrl + '?api_key=' + api_key, callback)
-				# console.log(payload)
-				# post(fullUrl + '?api_key=' + api_key, payload, callback)
+				console.log('Method not supported.')
+				new Error('Viralheat.callAPI: Method not supported.')
+				return
 	}
-
+	
 _is = (type, module, method) ->
 	if(type=='get')
 		switch module
-			when 'profiles'
-				switch method
-					when 'list_all', 'details', 'alerts'
-						return true
-					else
-						return false
-			when 'statistics', 'data', 'social_trends', 'sentiment', 'messaging'
+			when 'sentiment'
 				return true
-			else
-				return false
-	else if(type=='post')
-		switch module
-			when 'profiles'
-				switch method
-					when 'list_all', 'details', 'alerts'
-						return false
-					else
-						return true
 			else
 				return false

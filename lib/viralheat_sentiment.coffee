@@ -1,8 +1,5 @@
-######
-# Viralheat Sentiment module
-######
-
 exports = module.exports = (api_key) ->
+	
 	######
 	# Module dependencies
 	######
@@ -48,7 +45,8 @@ exports = module.exports = (api_key) ->
 		)
 
 	return {
+		api_key: api_key,
 		train: train,
 		get: get,
 		quota: quota
-	}
+	};

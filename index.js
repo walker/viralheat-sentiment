@@ -1,1 +1,1 @@
-module.exports = require('./lib/viralheat');
+module.exports = require('./lib/viralheat_sentiment');
