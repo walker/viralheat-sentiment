@@ -6,9 +6,6 @@
   "contributors": [ 
     { "name": "Walker Hamilton", "email": "myself@walkerhamilton.com" }
   ],
-  "dependencies": {
-    "libxmljs": ">= 1.5.2 < 2.0.0",
-  },
   "devDependencies": {
     "coffee-script": ">= 0.0.1",
   },
